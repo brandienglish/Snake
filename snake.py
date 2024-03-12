@@ -98,7 +98,8 @@ class Game:
     def collision_with_tail(self):
         no_head = self.snake.body[1:]
         if self.snake.body[0] in no_head:
-            self.game_over()
+            self.game_over() 
+            #Test
 
 
 #creating the game display screen (game window)
