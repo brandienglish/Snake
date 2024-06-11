@@ -1,6 +1,6 @@
 import pygame , sys, random
 from pygame.math import Vector2
-
+  
 pygame.init()
 
 # game screen color
@@ -11,6 +11,8 @@ DARK_GREEN = (43,51,24)
 cell_size= 30 
 number_of_cells=25
 
+OFFSET = 75
+
 # Food class 
 class Food:
     def __init__(self, snake_body) :
@@ -18,7 +20,7 @@ class Food:
 
     #displaying and positiong the food 
     def draw(self):
-        food_rect= pygame.Rect(self.position.x * cell_size, self.position.y *cell_size,cell_size,cell_size)
+        food_rect= pygame.Rect(OFFSET+self.position.x * cell_size,OFFSET+ self.position.y *cell_size,cell_size,cell_size)
         screen.blit(food_image, food_rect)
     
     def generate_random_cell(self):
@@ -44,7 +46,7 @@ class Snake:
 
     def draw(self):
         for segment in self.body:
-            segment_rect =(segment.x* cell_size, segment.y*cell_size, cell_size ,cell_size)
+            segment_rect =(OFFSET + segment.x* cell_size, OFFSET+segment.y*cell_size, cell_size ,cell_size)
             pygame.draw.rect(screen,DARK_GREEN, segment_rect,0,10)
     
     def update(self):
@@ -103,7 +105,7 @@ class Game:
 
 
 #creating the game display screen (game window)
-screen = pygame.display.set_mode((cell_size*number_of_cells,cell_size*number_of_cells))
+screen = pygame.display.set_mode((2*OFFSET+cell_size*number_of_cells,2*OFFSET+cell_size*number_of_cells))
 
 pygame.display.set_caption("Snake")
 
@@ -150,6 +152,8 @@ while True:
      
     #drawing 
     screen.fill(GREEN)
+    pygame.draw.rect(screen, DARK_GREEN, 
+		(OFFSET-5, OFFSET-5, cell_size*number_of_cells+10, cell_size*number_of_cells+10), 5)
     game.draw() 
     pygame.display.update()
 
